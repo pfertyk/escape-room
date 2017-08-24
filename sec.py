@@ -2,8 +2,8 @@ from os import system
 from random import choice, sample
 from time import sleep
 
+from colorama import Back, Fore, Style, init
 from pyfiglet import Figlet
-from termcolor import colored
 
 PASSWORDS = {
     'yellow': {
@@ -34,6 +34,7 @@ PASSWORDS = {
 
 
 f = Figlet()
+init(autoreset=True)
 done = False
 
 while not done:
@@ -51,20 +52,21 @@ while not done:
         expected_passwords.add((color, key, correct_pass))
 
     system('clear')
-    print(colored(f.renderText('Security System'), 'yellow', attrs=['bold']))
+    print(Fore.YELLOW + Style.BRIGHT + f.renderText('Security System'))
 
     passwords = set()
 
     for color, key, _ in expected_passwords:
-        print(colored('  ' + key + '  ', 'grey', 'on_' + color), end='')
+        back_color = getattr(Back, color.upper())
+        print(Style.BRIGHT + back_color + '  ' + key + '  ', end='')
         password = input(': ')
         passwords.add((color, key, password))
 
     if passwords == expected_passwords:
-        print(colored(f.renderText('OK 4536'), 'green'))
+        print(Fore.GREEN + f.renderText('>>  4536  <<'))
         done = True
     else:
-        print(colored(f.renderText('ERROR'), 'red'), end='')
+        print(Fore.RED + f.renderText('ERROR'))
         sleep(3)
 
 
