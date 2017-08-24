@@ -1,8 +1,9 @@
 from os import system
-from random import choice, sample, shuffle
-from termcolor import colored
-from pyfiglet import Figlet
+from random import choice, sample
+from time import sleep
 
+from pyfiglet import Figlet
+from termcolor import colored
 
 PASSWORDS = {
     'yellow': {
@@ -50,7 +51,7 @@ while not done:
         expected_passwords.add((color, key, correct_pass))
 
     system('clear')
-    print(colored(f.renderText('Security System'), 'white', 'on_red', attrs=['bold']))
+    print(colored(f.renderText('Security System'), 'yellow', attrs=['bold']))
 
     passwords = set()
 
@@ -60,13 +61,11 @@ while not done:
         passwords.add((color, key, password))
 
     if passwords == expected_passwords:
-        print(colored(f.renderText('OK'), 'green'))
-        print(colored(f.renderText('4536')))
+        print(colored(f.renderText('OK 4536'), 'green'))
         done = True
     else:
-        print(colored(f.renderText('ERROR'), 'red'))
-
-    input()
+        print(colored(f.renderText('ERROR'), 'red'), end='')
+        sleep(3)
 
 
 while True:
