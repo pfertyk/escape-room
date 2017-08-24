@@ -63,11 +63,15 @@ while not done:
         passwords.add((color, key, password))
 
     if passwords == expected_passwords:
-        print(Fore.GREEN + f.renderText('>>  4536  <<'))
+        print(Style.BRIGHT + Fore.GREEN + f.renderText('>>  4536  <<'))
         done = True
     else:
-        print(Fore.RED + f.renderText('ERROR'))
-        sleep(3)
+        for i in range(4):
+            clear_line = '\r\033[K\033[F'
+            print(Style.BRIGHT + Fore.RED + f.renderText('ERROR'), end='')
+            sleep(0.3)
+            print(clear_line * 7)
+            sleep(0.3)
 
 
 while True:
