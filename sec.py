@@ -60,10 +60,11 @@ while not done:
         passwords.add((color, key, password))
 
     if passwords == expected_passwords:
-        print(colored(f.renderText('PASSWORDS CORRECT'), 'white', 'on_green'))
+        print(colored(f.renderText('OK'), 'green'))
+        print(colored(f.renderText('4536')))
         done = True
     else:
-        print(colored(f.renderText('PASSWORDS INCORRECT'), 'white', 'on_red'))
+        print(colored(f.renderText('ERROR'), 'red'))
 
     input()
 
