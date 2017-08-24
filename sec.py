@@ -32,28 +32,29 @@ PASSWORDS = {
     },
 }
 
-
-f = Figlet()
 init(autoreset=True)
-done = False
+F = Figlet()
+DONE = False
 
-while not done:
-    all_colors = set(PASSWORDS.keys())
+
+def select_random_passwords(passwords):
+    all_colors = set(passwords.keys())
     all_colors.remove('yellow')
 
     colors = {'yellow'}
     colors.update(sample(all_colors, 3))
 
-    expected_passwords = set()
+    random_passwords = set()
 
     for color in colors:
-        key = choice(list(PASSWORDS[color].keys()))
-        correct_pass = PASSWORDS[color][key]
-        expected_passwords.add((color, key, correct_pass))
+        key = choice(list(passwords[color].keys()))
+        correct_password = passwords[color][key]
+        random_passwords.add((color, key, correct_password))
 
-    system('clear')
-    print(Fore.YELLOW + Style.BRIGHT + f.renderText('Security System'))
+    return random_passwords
 
+
+def get_passwords_from_user(expected_passwords):
     passwords = set()
 
     for color, key, _ in expected_passwords:
@@ -62,16 +63,38 @@ while not done:
         password = input(': ')
         passwords.add((color, key, password))
 
+    return passwords
+
+
+def print_header():
+    system('clear')
+    print(Fore.YELLOW + Style.BRIGHT + F.renderText('Security System'))
+
+
+def print_access_code():
+    print(Style.BRIGHT + Fore.GREEN + F.renderText('>>  4536  <<'))
+
+
+def print_error_message():
+    clear_line = '\r\033[K\033[F'
+    for i in range(4):
+        print(Style.BRIGHT + Fore.RED + F.renderText('ERROR'), end='')
+        sleep(0.3)
+        print(clear_line * 7)
+        sleep(0.3)
+
+
+while not DONE:
+    print_header()
+
+    expected_passwords = select_random_passwords(PASSWORDS)
+    passwords = get_passwords_from_user(expected_passwords)
+
     if passwords == expected_passwords:
-        print(Style.BRIGHT + Fore.GREEN + f.renderText('>>  4536  <<'))
-        done = True
+        print_access_code()
+        DONE = True
     else:
-        for i in range(4):
-            clear_line = '\r\033[K\033[F'
-            print(Style.BRIGHT + Fore.RED + f.renderText('ERROR'), end='')
-            sleep(0.3)
-            print(clear_line * 7)
-            sleep(0.3)
+        print_error_message()
 
 
 while True:
