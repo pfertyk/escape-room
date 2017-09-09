@@ -1,2 +1,3 @@
 #!/usr/bin/env bash
-python -OO -m py_compile sec.py
+pyminifier --pyz=security.py sec.py
+pyminifier --pyz=navigation.py nav.py
