@@ -9,9 +9,9 @@ PLANETS = {
 
 QUESTIONS = [
     ('Atmosphere', 'Yes', 'No'),
-    ('Number of moons', '0', '1', '2', '3', '4'),
-    ('Main element', 'Element1', 'Element2', 'Element3'),
     ('Water', 'Yes', 'No'),
+    ('Number of moons', '0', '1', '2', '3', '4'),
+    ('Surface', 'Cotofotelum', 'Vistulum', 'Pulcherium', 'Triodecennium'),
 ]
 
 
@@ -21,12 +21,14 @@ DONE = False
 
 while not DONE:
     system('clear')
-    print(Fore.Green + F.renderText('Planet Database'))
+    print(Fore.GREEN + F.renderText('Planet\nDatabase'))
     answers = []
     for item in QUESTIONS:
         question, *options = item
-        ans = ', '.join('{}: {}'.format(i, t) for i, t in enumerate(options))
-        print('{} [{}]:'.format(question, ans))
+        available_answers = ', '.join(
+            '{}: {}'.format(i, t) for i, t in enumerate(options)
+        )
+        print('{} [{}]:'.format(question, available_answers))
         while True:
             answer = input()
             if answer.isdigit() and int(answer) < len(options):
@@ -35,6 +37,7 @@ while not DONE:
         answers.append(str(answer))
     key = ''.join(answers)
     planet = PLANETS.get(key, 'UNKNOWN')
-    print('The planet is: ' + planet)
+    print('The planet is:')
+    print(Fore.YELLOW + planet)
     print('Press Enter to search again')
     input()
