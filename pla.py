@@ -29,7 +29,7 @@ PLANETS = {
     '0102': 'Skao',
     '0103': 'Vayrilia',
     '0110': 'Gapreshan',
-    '0111': 'MOsmoenia',
+    '0111': 'Mosmoenia',
     '0112': 'Crippe',
     '0113': 'Astrarth',
     '0120': 'Dremetis',
