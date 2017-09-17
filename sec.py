@@ -109,6 +109,7 @@ def get_passwords_from_user(expected_passwords):
         back_color = getattr(Back, color.upper())
         print(Style.BRIGHT + back_color + '  ' + key + '  ', end='')
         password = input(': ')
+        print()
         passwords.add((color, key, password))
 
     return passwords
@@ -120,7 +121,7 @@ def print_header():
 
 
 def print_access_code():
-    print(Style.BRIGHT + Fore.GREEN + F.renderText('>>  4536  <<'))
+    print(Style.BRIGHT + Fore.GREEN + F.renderText('>>  987  <<'))
 
 
 def print_error_message():
