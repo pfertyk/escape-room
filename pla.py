@@ -1,6 +1,7 @@
 from os import system
 from colorama import Fore, init
 from pyfiglet import Figlet
+from textwrap import wrap
 
 
 PLANETS = {
@@ -90,7 +91,12 @@ QUESTIONS = [
     ('Atmosphere', 'No', 'Yes'),
     ('Water', 'No', 'Yes'),
     ('Number of moons', '0', '1', '2', '3', '4'),
-    ('Surface', 'Vistulum', 'Pulcherium', 'Cotofotelum', 'Triodecennium'),
+    (
+        'Mineral',
+        'Vistulum', 'Pulcherium', 'Cotofotelum', 'Triodecennium',
+        'Sanescobarium', 'Coroncum', 'Lannisterium', 'Escapium',
+        'Tofucium', 'Veganium', 'Pragium', 'Pastentomatum'
+    ),
 ]
 
 
@@ -107,14 +113,20 @@ while not DONE:
         available_answers = ', '.join(
             '{}: {}'.format(i, t) for i, t in enumerate(options)
         )
-        print('{} [{}]:'.format(question, available_answers))
+        for l in wrap('{} [{}]:'.format(question, available_answers, 40)):
+            print(l)
         while True:
             answer = input()
             if answer.isdigit() and int(answer) < len(options):
                 break
             print(Fore.RED + 'Incorrect option')
-        answers.append(str(answer))
-    key = ''.join(answers)
+        answer = int(answer)
+        if answer >= 4:  # special case for mineral
+            additional_moons, answer = divmod(answer, 4)
+            new_moon_count = (answers[2] + additional_moons) % 5
+            answers[2] = new_moon_count
+        answers.append(answer)
+    key = ''.join(str(a) for a in answers)
     planet = PLANETS.get(key, 'UNKNOWN')
     print('The planet is:')
     print(Fore.YELLOW + planet)
